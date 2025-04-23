@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau</title>
+    <style>
+        /* Make Tableau visualization fill the entire page */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .tableauPlaceholder {
+            width: 100%;
+            height: 100%;
+            max-width: 100%; /* Prevent horizontal overflow */
+            max-height: 100%; /* Prevent vertical overflow */
+            position: relative;
+            box-sizing: border-box; /* Ensure no overflow due to padding or borders */
+        }
+        .tableauPlaceholder object {
+            width: 100%;
+            height: 100%;
+            max-width: 100%; /* Prevent horizontal overflow */
+            max-height: 100%; /* Prevent vertical overflow */
+            box-sizing: border-box; /* Ensure no overflow due to padding or borders */
+        }
+        .header {
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: 40px;
+            color: black;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: #000000;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p>
+            <a href="scratch.html">Home</a> |
+            <a href="/webapp.html">Quotes</a> |
+            <a href="/snake.html">Snake</a> |
+            <a href="#">Tableau</a>
+        </p>
+    </div>
+    <div class='tableauPlaceholder' id='viz1745362879483'>
+        <noscript>
+            <a href='#'>
+                <img alt='Web Traffic DashboardCockpit' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;We&#47;WebTrafficDashboardRedesign&#47;Cockpit&#47;1_rss.png' style='border: none' />
+            </a>
+        </noscript>
+        <object class='tableauViz'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='site_root' value='' />
+            <param name='name' value='WebTrafficDashboardRedesign&#47;Cockpit' />
+            <param name='tabs' value='no' />
+            <param name='toolbar' value='yes' />
+            <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;We&#47;WebTrafficDashboardRedesign&#47;Cockpit&#47;1.png' />
+            <param name='animate_transition' value='yes' />
+            <param name='display_static_image' value='yes' />
+            <param name='display_spinner' value='yes' />
+            <param name='display_overlay' value='yes' />
+            <param name='display_count' value='yes' />
+            <param name='language' value='en-US' />
+            <param name='filter' value='_gl=1*n9zre5*_ga*NjEyNzY5NTU2LjE3NDE3Mzg0MzY.*_ga_8YLN0SNXVS*MTc0NTM2MjM1OS42LjEuMTc0NTM2Mjg2NS4wLjAuMA..' />
+        </object>
+    </div>
+    <script type='text/javascript'>
+        var divElement = document.getElementById('viz1745362879483');
+        var vizElement = divElement.getElementsByTagName('object')[0];
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+
+        // Ensure the Tableau visualization fits the viewport after it loads
+        window.addEventListener('load', function () {
+            vizElement.style.width = '100%';
+            vizElement.style.height = '100%';
+        });
+    </script>
+</body>
+</html>

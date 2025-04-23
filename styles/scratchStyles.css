@@ -1,0 +1,81 @@
+body {
+    background-color: #cccccc;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: royalblue;
+}
+
+.common {
+    /* background-color: #cccccc; */
+    border: 2px solid white;
+    position: absolute;
+}
+
+h1 {
+    color: rgb(15, 167, 228);
+}
+
+.header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 45px;
+    border: solid 1px #555555;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.leftmenu {
+    top: 56px;
+    left: 5px;
+    width: 100px;
+    height: calc(100vh - 56px - 40px);
+    bottom: 51px;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: solid 1px #555555;
+    border-bottom: none;
+    z-index: 5;
+}
+
+.mainbody {
+    top: 56px;
+    left: 116px;
+    right: 5px;
+    bottom: 51px;
+    height: calc(100vh - 56px - 40px);
+    padding-right: 10px;
+    padding-left: 10px;
+    border: solid 1px #555555;
+    border-bottom: none;
+    z-index: 5;
+    overflow: auto;
+}
+
+.footer {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: auto; /* Allow the height to adjust based on content */
+    font-size: 8px;
+    color: gray;
+    text-align: center;
+    padding: 10px; /* Add padding for better spacing */
+    border: none;
+    border-top: #555555 solid 1px;
+    z-index: 10;
+    background-color: #cccccc;
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+        h1 {
+            margin: 0;
+            padding: 10px;
+            font-size: 2.5em;
+            color: lime;
+        }
+        canvas {
+            border: 1px solid #fff;
+        }
+        .info {
+            display: flex;
+            justify-content: space-between;
+            width: 400px;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .header {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: 40px;
+            text-align: left;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p>
+            <a href="scratch.html">Home</a> | 
+            <a href="webapp.html">Quotes</a> |
+            <a href="#">Snake</a> |
+            <a href="tableau.html">Tableau</a>
+        </p>
+        
+    </div>
+    <h1>Snake!</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="info">
+        <span id="currentScore">Score: 0</span>
+        <span id="highScore">High Score: 0</span>
+    </div>
+    <button id="startButton">Start Game</button>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const currentScoreElement = document.getElementById('currentScore');
+        const highScoreElement = document.getElementById('highScore');
+
+        const box = 20;
+        const canvasSize = canvas.width / box;
+
+        let snake, direction, food, score, gameInterval;
+
+        // Load high score from localStorage
+        let highScore = localStorage.getItem('highScore') || 0;
+        highScoreElement.textContent = `High Score: ${highScore}`;
+
+        function initializeGame() {
+            snake = [{ x: Math.floor(canvasSize / 2), y: Math.floor(canvasSize / 2) }];
+            direction = 'RIGHT';
+            generateFood();
+            score = 0;
+            updateScore();
+        }
+
+        function generateFood() {
+            let validPosition = false;
+            while (!validPosition) {
+                food = {
+                    x: Math.floor(Math.random() * canvasSize),
+                    y: Math.floor(Math.random() * canvasSize)
+                };
+
+                // Check if the food overlaps with any part of the snake
+                validPosition = !snake.some(segment => segment.x === food.x && segment.y === food.y);
+            }
+        }
+
+        document.addEventListener('keydown', changeDirection);
+
+        function changeDirection(event) {
+            if (event.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
+            if (event.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
+            if (event.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
+            if (event.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+        }
+
+        function drawSnake() {
+            snake.forEach(segment => {
+                ctx.fillStyle = 'lime';
+                ctx.fillRect(segment.x * box, segment.y * box, box, box);
+                ctx.strokeStyle = 'darkgreen';
+                ctx.strokeRect(segment.x * box, segment.y * box, box, box);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(food.x * box, food.y * box, box, box);
+        }
+
+        function moveSnake() {
+            const head = { ...snake[0] };
+
+            if (direction === 'UP') head.y -= 1;
+            if (direction === 'DOWN') head.y += 1;
+            if (direction === 'LEFT') head.x -= 1;
+            if (direction === 'RIGHT') head.x += 1;
+
+            snake.unshift(head);
+
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                updateScore();
+                food = {
+                    x: Math.floor(Math.random() * canvasSize),
+                    y: Math.floor(Math.random() * canvasSize)
+                };
+            } else {
+                snake.pop();
+            }
+        }
+
+        function checkCollision() {
+            const head = snake[0];
+
+            // Check wall collision
+            if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
+                return true;
+            }
+
+            // Check self collision
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function updateScore() {
+            currentScoreElement.textContent = `Score: ${score}`;
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = `High Score: ${highScore}`;
+                localStorage.setItem('highScore', highScore);
+            }
+        }
+
+        function gameLoop() {
+            if (checkCollision()) {
+                clearInterval(gameInterval);
+                alert('Game Over! Your score: ' + score);
+                initializeGame();
+                drawInitialScreen();
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSnake();
+            drawFood();
+            moveSnake();
+        }
+
+        function drawInitialScreen() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.fillText('Press Start to Play', canvas.width / 2 - 80, canvas.height / 2);
+        }
+
+        startButton.addEventListener('click', () => {
+            initializeGame();
+            clearInterval(gameInterval);
+            gameInterval = setInterval(gameLoop, 100);
+        });
+
+        // Initialize the game and show the initial screen
+        initializeGame();
+        drawInitialScreen();
+    </script>
+</body>
+</html>

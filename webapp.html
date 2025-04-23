@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stormlight Archive Quotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: rgb(255, 255, 255, 0.6);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .quote {
+            font-size: 1.5em;
+            font-style: italic;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .text {
+            color: black;
+        }
+        .quoteheader {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: 40px;
+            text-align: left;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+        .backgroundimg {
+            background-image: url("images/bridge_four.jpg");
+            background-position: center;
+        }
+        .footer {
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            height: 25px;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+            padding-top: 15px;
+            position: fixed;
+            border: none;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: royalblue;
+        }
+    </style>
+</head>
+<body class="backgroundimg">
+    <div class="quoteheader">
+        <p>
+            <a href="scratch.html">Home</a> | 
+            <a href="#">Quotes</a> |
+            <a href="snake.html">Snake</a> |
+            <a href="tableau.html">Tableau</a>
+        </p>
+    </div>
+    <div class="container">
+        <h1 class="text">Stormlight Archive Quotes</h1>
+        <p class="quote text" id="quote">Click the button to generate a quote!</p>
+        <button onclick="generateQuote()">Generate Quote</button>
+    </div>
+
+    <script>
+        const quotes = [
+            "Failure is the mark of a life well lived. In turn, the only way to live without failure is to be of no use to anyone.",
+            "Sometimes a hypocrite is nothing more than a man in the process of changing.",
+            "To love the journey is to accept no such end. I have found, through painful experience, that the most important step a person can take is always the next one.",
+            "I will take responsibility for what I have done. If I must fall, I will rise each time a better man.",
+            "Life breaks us, Teft. Then we fill the cracks with something stronger.",
+            "Aim for the sun. That way if you miss, at least your arrow will fall far away, and the person it kills will likely be someone you don’t know.",
+            "I will protect even those I hate, so long as it is right!",
+            "And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived. In the end, I must proclaim that no good can be achieved by false means. For the substance of our existence is not in the achievement, but in the method.",
+            "Strength does not make one capable of rule, it makes one capable of service.",
+            "Life before death. Strength before weakness. Journey before destination.",
+            "You can. Find the balance. Accept the pain, but don’t accept that you deserve it."
+        ];
+
+        let shuffledQuotes = [];
+        let currentIndex = 0;
+
+        function shuffleQuotes() {
+            shuffledQuotes = [...quotes].sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+        }
+
+        function generateQuote() {
+            // If all quotes have been shown, reshuffle the array
+            if (currentIndex >= shuffledQuotes.length) {
+                shuffleQuotes();
+            }
+            // Display the next quote
+            const quoteElement = document.getElementById('quote');
+            quoteElement.textContent = shuffledQuotes[currentIndex];
+            currentIndex++;
+        }
+
+        // Initialize the shuffled quotes on page load
+        shuffleQuotes();
+    </script>
+    <div class="footer">Image obtained from https://imgur.com/gNOkAlz</div>
+</body>
+</html>
